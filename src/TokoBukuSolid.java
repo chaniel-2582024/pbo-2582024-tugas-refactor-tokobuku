@@ -1,8 +1,4 @@
-// =====================================================================
-// TokoBukuKotor.java (tahap 5) - tinggal main; class lain sudah dipisah.
-// =====================================================================
-
-public class TokoBukuKotor {
+public class TokoBukuSolid {
     public static void main(String[] args) {
         BukuCetak cetak1 = new BukuCetak("Pemrograman Java", "John Doe", 120000, 750);
         BukuCetak cetak2 = new BukuCetak("Algoritma Dasar", "Jane Smith", 95000, 400);
