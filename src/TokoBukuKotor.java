@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 // =====================================================================
-// TokoBukuKotor.java (tahap 2) - Buku sudah dipecah per jenis (LSP + ISP).
+// TokoBukuKotor.java (tahap 3) - metode bayar sudah jadi interface (OCP).
 // =====================================================================
 
 class EmailSender {
@@ -25,29 +25,7 @@ class Toko {
         keranjang.add(buku);
     }
 
-    String namaMetode(String metode) {
-        if (metode.equals("TUNAI")) {
-            return "Tunai";
-        } else if (metode.equals("TRANSFER")) {
-            return "Transfer (+Rp2.500)";
-        } else if (metode.equals("EWALLET")) {
-            return "E-Wallet (diskon 2%)";
-        }
-        return "?";
-    }
-
-    int totalBayar(String metode, int totalBelanja) {
-        if (metode.equals("TUNAI")) {
-            return totalBelanja;
-        } else if (metode.equals("TRANSFER")) {
-            return totalBelanja + 2500;
-        } else if (metode.equals("EWALLET")) {
-            return totalBelanja * 98 / 100;
-        }
-        return totalBelanja;
-    }
-
-    void checkout(String pelanggan, String alamatEmail, String metode,
+    void checkout(String pelanggan, String alamatEmail, MetodeBayar metode,
                   BisaDikirim[] dikirim, BisaDiunduh[] unduhan) {
         System.out.println("================ STRUK =================");
         System.out.println("Pelanggan : " + pelanggan);
@@ -59,10 +37,10 @@ class Toko {
             System.out.println("  Harga akhir : " + formatRupiah(b.hargaAkhir()));
             total += b.hargaAkhir();
         }
-        int bayar = totalBayar(metode, total);
+        int bayar = metode.totalBayar(total);
         System.out.println("-----------------------------------------");
         System.out.println("Total belanja : " + formatRupiah(total));
-        System.out.println("Metode bayar  : " + namaMetode(metode));
+        System.out.println("Metode bayar  : " + metode.nama());
         System.out.println("Total bayar   : " + formatRupiah(bayar));
 
         int totalBerat = 0;
@@ -102,6 +80,6 @@ public class TokoBukuKotor {
         BisaDikirim[] dikirim = { cetak1, cetak2 };
         BisaDiunduh[] unduhan = { digital, audio };
 
-        toko.checkout("Sari", "sari@mail.com", "EWALLET", dikirim, unduhan);
+        toko.checkout("Sari", "sari@mail.com", new EWallet(), dikirim, unduhan);
     }
 }
