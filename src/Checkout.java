@@ -1,7 +1,13 @@
 public class Checkout {
-    private StrukPrinter printer = new StrukPrinter();
-    private EmailSender email = new EmailSender();
-    private FileRiwayat riwayat = new FileRiwayat();
+    private final StrukPrinter printer;
+    private final PenyimpanRiwayat riwayat;
+    private final Notifikasi notifikasi;
+
+    public Checkout(StrukPrinter printer, PenyimpanRiwayat riwayat, Notifikasi notifikasi) {
+        this.printer = printer;
+        this.riwayat = riwayat;
+        this.notifikasi = notifikasi;
+    }
 
     public void proses(String pelanggan, String alamatEmail, Keranjang keranjang,
                        MetodeBayar metode, BisaDikirim[] dikirim, BisaDiunduh[] unduhan) {
@@ -18,6 +24,6 @@ public class Checkout {
         printer.cetakPengiriman(totalBerat, unduhan);
 
         riwayat.simpan(pelanggan + ";" + keranjang.getIsi().size() + " buku;" + Rupiah.format(bayar));
-        email.kirim(alamatEmail, "Terima kasih " + pelanggan + ", total bayar " + Rupiah.format(bayar));
+        notifikasi.kirim(alamatEmail, "Terima kasih " + pelanggan + ", total bayar " + Rupiah.format(bayar));
     }
 }

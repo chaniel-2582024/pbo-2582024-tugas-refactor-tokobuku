@@ -1,5 +1,5 @@
 // =====================================================================
-// TokoBukuKotor.java (tahap 4) - tinggal main; class lain sudah dipisah.
+// TokoBukuKotor.java (tahap 5) - tinggal main; class lain sudah dipisah.
 // =====================================================================
 
 public class TokoBukuKotor {
@@ -18,7 +18,7 @@ public class TokoBukuKotor {
         BisaDikirim[] dikirim = { cetak1, cetak2 };
         BisaDiunduh[] unduhan = { digital, audio };
 
-        Checkout checkout = new Checkout();
+        Checkout checkout = new Checkout(new StrukPrinter(), new FileRiwayat(), new EmailNotifikasi());
         checkout.proses("Sari", "sari@mail.com", keranjang, new EWallet(), dikirim, unduhan);
     }
 }
